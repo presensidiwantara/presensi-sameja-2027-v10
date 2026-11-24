@@ -1,0 +1,18 @@
+{
+  "name": "Presensi Mata Pelajaran SMP N 1 Mekarjaya",
+  "short_name": "Presensi Mapel",
+  "description": "Aplikasi Presensi Mata Pelajaran & Kelas SAMEJA 2027 - SMP N 1 Mekarjaya",
+  "start_url": "./presensi-mapel.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b2239",
+  "theme_color": "#0b2239",
+  "icons": [
+    {
+      "src": "./assets/logo-sekolah.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

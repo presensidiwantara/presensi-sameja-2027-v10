@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Presensi Mata Pelajaran — SMP N 1 Mekarjaya | SAMEJA 2027</title>
+
+  <!-- WhatsApp & Social Share Meta Tags -->
+  <meta property="og:title" content="Presensi Sameja 2027" />
+  <meta property="og:description" content="Presensi Mata Pelajaran & Monitoring Kelas Terintegrasi — SMP N 1 Mekarjaya" />
+  <meta property="og:image" content="./assets/logo-sekolah.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Presensi Sameja 2027" />
+  <meta name="twitter:image" content="./assets/logo-sekolah.png" />
+
+  <!-- PWA Add To Home Screen -->
+  <link rel="manifest" href="./manifest-mapel.json" />
+  <link rel="icon" type="image/png" href="./assets/logo-sekolah.png" />
+  <link rel="apple-touch-icon" href="./assets/logo-sekolah.png" />
+  <meta name="theme-color" content="#0b2239" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+</head>
+<body>
+
+  <!-- SPLASH SCREEN 2 DETIK -->
+  <div id="splash-screen">
+    <div class="splash-logo-wrap">
+      <img id="splash-logo-img" src="./assets/logo-sekolah.png" alt="Logo SMP N 1 Mekarjaya" />
+    </div>
+    <div class="splash-title">SAMEJA 2027</div>
+    <div class="splash-subtitle">SMP N 1 MEKARJAYA</div>
+    <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-box">
+        <img id="header-logo-sekolah" class="brand-logo" src="./assets/logo-sekolah.png" alt="Logo Sekolah" />
+        <div class="brand-titles">
+          <h1 style="font-size:1.18rem;">Presensi Mata Pelajaran</h1>
+          <p>SMP N 1 MEKARJAYA</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span id="sync-status-pill" class="sync-pill online">
+          <i class="fa-solid fa-cloud-check"></i> <span id="sync-status-text">Online</span>
+        </span>
+        <a href="./index.html" class="icon-btn" title="Buka Aplikasi Presensi Guru" onclick="SAMEJA_CORE.playSound('click')">
+          <i class="fa-solid fa-user-check"></i>
+        </a>
+        <button id="btn-sound-toggle" class="icon-btn" title="Efek Suara"><i class="fa-solid fa-volume-high"></i></button>
+        <button id="btn-fullscreen" class="icon-btn" title="Layar Penuh"><i class="fa-solid fa-expand"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGASI 3 MENU UTAMA -->
+  <nav class="nav-tabs" role="tablist">
+    <button class="nav-tab" data-tab="ruangguru"><i class="fa-solid fa-chalkboard-user"></i> Ruang Guru</button>
+    <button class="nav-tab active" data-tab="ruangmurid"><i class="fa-solid fa-users-rectangle"></i> Ruang Murid</button>
+    <button class="nav-tab" data-tab="statistikmurid"><i class="fa-solid fa-ranking-star"></i> Statistik Murid</button>
+  </nav>
+
+  <main class="main-container">
+
+    <!-- ================= MENU 1: RUANG GURU (TERPROTEKSI NAMA GURU + KODE AKSES) ================= -->
+    <section id="panel-ruangguru" class="section-panel">
+      <div id="rg-lock-box" class="card" style="max-width:460px;margin:18px auto;">
+        <div style="text-align:center;margin-bottom:14px;">
+          <div style="font-size:2.3rem;color:var(--primary);"><i class="fa-solid fa-id-badge"></i></div>
+          <h2 style="font-size:1.15rem;font-weight:800;color:var(--primary);">Login Ruang Guru Mata Pelajaran</h2>
+          <p style="font-size:0.8rem;color:var(--muted);">Pilih Nama Guru (tersinkron dari Aplikasi Presensi Guru) & masukkan kode akses.</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nama Guru</label>
+          <select id="rg-login-guru" class="form-control"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Kode Akses</label>
+          <input type="password" id="rg-login-code" class="form-control" placeholder="Masukkan kode akses (diwantara01)..." />
+        </div>
+        <button id="btn-rg-login" class="btn btn-primary btn-block"><i class="fa-solid fa-right-to-bracket"></i> Masuk Ruang Guru</button>
+      </div>
+
+      <div id="rg-unlocked-content" style="display:none;">
+        <div class="alert-banner alert-success" style="display:flex;justify-content:space-between;align-items:center;">
+          <span id="rg-active-teacher-banner"><i class="fa-solid fa-user-check"></i> Login sebagai Guru</span>
+          <button id="btn-rg-logout" class="btn btn-outline" style="padding:5px 10px;font-size:0.75rem;"><i class="fa-solid fa-lock"></i> Keluar</button>
+        </div>
+
+        <!-- Buat Lembar Presensi Kelas & Mata Pelajaran -->
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-file-circle-plus"></i> Buat Lembar Presensi Kelas & Mata Pelajaran</div>
+          <form id="form-lembar-presensi">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">
+              <div class="form-group">
+                <label class="form-label">Mata Pelajaran</label>
+                <select id="rg-select-mapel" class="form-control" required></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kelas</label>
+                <input type="text" id="rg-input-kelas" list="kelas-datalist" class="form-control" placeholder="Pilih/ketik kelas (misal: VII-A)" required />
+                <datalist id="kelas-datalist"></datalist>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Waktu Mengajar (Jam Ke / Pukul)</label>
+                <input type="text" id="rg-input-waktu" class="form-control" placeholder="Contoh: Jam ke 1-2 (07.30 - 08.50)" required />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-emerald"><i class="fa-solid fa-plus-circle"></i> Simpan Lembar Presensi</button>
+          </form>
+
+          <h4 style="font-size:0.88rem;font-weight:800;margin:16px 0 8px;color:var(--primary);">Daftar Lembar Presensi Tersedia</h4>
+          <div id="rg-lembar-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+        <!-- Template CSV & Impor Data Murid -->
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-file-csv"></i> Impor Data Murid (Format CSV)</div>
+          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;">
+            Unduh template CSV terlebih dahulu, isi data murid (<code>NIS,Nama_Murid,Kelas,Jenis_Kelamin</code>), lalu unggah kembali.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+            <button type="button" id="btn-download-csv-template" class="btn btn-outline"><i class="fa-solid fa-download"></i> Unduh Template CSV</button>
+            <input type="file" id="input-import-csv" accept=".csv,text/csv" class="form-control" style="max-width:300px;" />
+          </div>
+          <div id="rg-murid-summary" style="font-size:0.82rem;font-weight:700;color:var(--primary);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MENU 2: RUANG MURID (PRESENSI, NILAI & REKAP A4) ================= -->
+    <section id="panel-ruangmurid" class="section-panel active">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-clipboard-user"></i> Lembar Presensi & Penilaian Murid</div>
+
+        <div class="telemetry-box" style="margin-bottom:14px;">
+          <div class="telemetry-label"><i class="fa-solid fa-calendar-day"></i> Tanggal Pertemuan Otomatis</div>
+          <div id="rm-auto-date" class="telemetry-value">Memuat tanggal...</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+          <div class="form-group">
+            <label class="form-label">Pilih Lembar Kelas & Mata Pelajaran</label>
+            <select id="rm-select-lembar" class="form-control">
+              <option value="">-- Pilih Kelas & Mata Pelajaran --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status Kegiatan di Kelas (Tampil di Ruang Kelas)</label>
+            <select id="rm-status-kegiatan" class="form-control">
+              <option value="Sedang Belajar">Sedang Belajar (Tatap Muka)</option>
+              <option value="Diberikan Tugas">Diberikan Tugas</option>
+              <option value="Praktikum / Proyek">Praktikum / Proyek Kelompok</option>
+              <option value="Ulangan / Asesmen">Ulangan / Asesmen Harian</option>
+              <option value="Diskusi & Presentasi">Diskusi & Presentasi</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="rm-input-materi">Materi Bahasan Pertemuan Ini *</label>
+          <input type="text" id="rm-input-materi" class="form-control" placeholder="Tuliskan pokok materi bahasan hari ini..." />
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <span style="font-weight:800;font-size:0.86rem;color:var(--primary);">Daftar Kehadiran & Nilai Pertemuan</span>
+          <button type="button" id="btn-set-all-hadir" class="btn btn-outline" style="padding:6px 10px;font-size:0.76rem;">
+            <i class="fa-solid fa-check-double"></i> Tandai Semua Hadir
+          </button>
+        </div>
+
+        <div class="table-responsive" style="margin-bottom:14px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Murid</th>
+                <th>Status Kehadiran</th>
+                <th style="width:95px;">Nilai (0-100)</th>
+              </tr>
+            </thead>
+            <tbody id="rm-murid-tbody">
+              <tr><td colspan="4" style="text-align:center;color:var(--muted);padding:18px;">Pilih Kelas & Mata Pelajaran terlebih dahulu.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button type="button" id="btn-simpan-presensi-mapel" class="btn btn-emerald btn-block" style="padding:13px;font-size:0.95rem;">
+          <i class="fa-solid fa-paper-plane"></i> Simpan Presensi & Update Status Ruang Kelas
+        </button>
+      </div>
+
+      <!-- Unduh Rekap Kehadiran & Nilai Murid (Bulan, Semester Ganjil/Genap, Tahun Ajaran) -->
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-file-arrow-down"></i> Unduh Rekap Kehadiran & Nilai Murid (Kertas A4)</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;">
+          <select id="rm-rekap-filter" class="form-control">
+            <option value="bulanan">Per Bulan (Bulan Ini)</option>
+            <option value="ganjil">Semester Ganjil (Juli - Desember)</option>
+            <option value="genap">Semester Genap (Januari - Juni)</option>
+            <option value="tahunan">Per Tahun Ajaran</option>
+          </select>
+          <button id="btn-rm-pdf" class="btn btn-danger"><i class="fa-solid fa-file-pdf"></i> Unduh PDF (A4)</button>
+          <button id="btn-rm-docx" class="btn btn-primary"><i class="fa-solid fa-file-word"></i> Unduh DOCX (A4)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MENU 3: STATISTIK MURID ================= -->
+    <section id="panel-statistikmurid" class="section-panel">
+      <div class="card">
+        <div class="card-title"><i class="fa-solid fa-chart-line"></i> Analisis Kehadiran & Capaian Nilai Murid</div>
+        <div class="form-group">
+          <label class="form-label">Filter Kelas</label>
+          <select id="sm-filter-kelas" class="form-control">
+            <option value="ALL">Semua Kelas</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+          <div class="card" style="border-top:4px solid var(--emerald);margin-bottom:0;">
+            <div class="card-title" style="color:var(--emerald);"><i class="fa-solid fa-trophy"></i> Kategori: Layak Dihargai</div>
+            <div id="sm-layak-dihargai" style="display:flex;flex-direction:column;gap:10px;"></div>
+          </div>
+          <div class="card" style="border-top:4px solid var(--danger);margin-bottom:0;">
+            <div class="card-title" style="color:var(--danger);"><i class="fa-solid fa-user-clock"></i> Kategori: Butuh Evaluasi</div>
+            <div id="sm-butuh-evaluasi" style="display:flex;flex-direction:column;gap:10px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./js/shared-core.js"></script>
+  <script src="./js/mapel-app.js"></script>
+</body>
+</html>

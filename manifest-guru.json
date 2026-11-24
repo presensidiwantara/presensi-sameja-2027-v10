@@ -1,0 +1,18 @@
+{
+  "name": "Presensi Guru SMP N 1 Mekarjaya",
+  "short_name": "Presensi Sameja",
+  "description": "Sistem Presensi Guru Terintegrasi SAMEJA 2027 - SMP N 1 Mekarjaya",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b2239",
+  "theme_color": "#0b2239",
+  "icons": [
+    {
+      "src": "./assets/logo-sekolah.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

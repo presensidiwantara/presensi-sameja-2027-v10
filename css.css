@@ -1,0 +1,596 @@
+:root {
+  --primary: #0b2239;
+  --primary-light: #153b61;
+  --accent: #0ea5e9;
+  --gold: #d4af37;
+  --emerald: #059669;
+  --emerald-bg: #d1fae5;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --surface: #ffffff;
+  --bg: #f1f5f9;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 16px;
+  --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 4px 10px -3px rgba(15, 23, 42, 0.04);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 84px;
+  overflow-x: hidden;
+}
+
+/* ================= SPLASH SCREEN 2 DETIK ================= */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(circle at top right, #164e63 0%, #0b2239 55%, #05111f 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+#splash-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash-logo-wrap {
+  width: 156px;
+  height: 186px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 30px rgba(212, 175, 55, 0.25);
+  animation: pulseLogo 1.8s ease-in-out infinite;
+}
+
+.splash-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.splash-title {
+  margin-top: 24px;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  background: linear-gradient(135deg, #ffffff 10%, #fde047 50%, #d4af37 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.splash-subtitle {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  letter-spacing: 0.24em;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.splash-loader {
+  width: 180px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+  margin-top: 28px;
+  overflow: hidden;
+}
+
+.splash-loader-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #38bdf8, #facc15);
+  animation: loadProgress 1.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes pulseLogo {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes loadProgress {
+  to { width: 100%; }
+}
+
+/* ================= HEADER PROFESIONAL ================= */
+.app-header {
+  background: linear-gradient(135deg, #0b2239 0%, #13385c 100%);
+  color: #fff;
+  padding: 14px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(11, 34, 57, 0.25);
+}
+
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 52px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.brand-titles h1 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.brand-titles p {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #fde047;
+  margin-top: 2px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.icon-btn:hover, .icon-btn:active {
+  background: rgba(255, 255, 255, 0.24);
+  transform: translateY(-1px);
+}
+
+.sync-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.sync-pill.online { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+.sync-pill.offline { background: rgba(245, 158, 11, 0.22); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.45); }
+
+/* ================= NAVIGASI TAB ================= */
+.nav-tabs {
+  max-width: 1080px;
+  margin: 12px auto 0;
+  padding: 0 12px;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-tab.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 6px 14px rgba(11, 34, 57, 0.22);
+}
+
+/* ================= CONTAINER & CARDS ================= */
+.main-container {
+  max-width: 1080px;
+  margin: 14px auto;
+  padding: 0 12px;
+}
+
+.section-panel {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.section-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ================= TELEMETRY TOP (WAKTU, LOKASI, KAMERA 4:3 PORTRAIT) ================= */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.telemetry-box {
+  background: linear-gradient(145deg, #f8fafc, #eff6ff);
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.telemetry-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.telemetry-value {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-top: 4px;
+}
+
+.telemetry-sub {
+  font-size: 0.78rem;
+  color: #334155;
+  margin-top: 3px;
+}
+
+/* Bingkai Kamera Rasio 4:3 Portrait (Lebar 3 : Tinggi 4) */
+.camera-portrait-wrapper {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 3 / 4;
+  margin: 0 auto 12px;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  background: #0f172a;
+  border: 3px solid var(--primary);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.22);
+}
+
+.camera-portrait-wrapper video,
+.camera-portrait-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.camera-portrait-wrapper video.mirror {
+  transform: scaleX(-1);
+}
+
+.camera-badge-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(11, 34, 57, 0.78);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 0.68rem;
+  padding: 6px 9px;
+  border-radius: 10px;
+  line-height: 1.35;
+}
+
+/* ================= FORM CONTROLS & BUTTONS ================= */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 11px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+}
+
+.radio-pills {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .radio-pills.four-cols { grid-template-columns: repeat(4, 1fr); }
+}
+
+.pill-option {
+  padding: 11px 10px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.pill-option.selected {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(11, 34, 57, 0.22);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-light); }
+.btn-emerald { background: var(--emerald); color: #fff; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-warning { background: var(--warning); color: #fff; }
+.btn-outline { background: #fff; color: var(--primary); border: 1.5px solid #cbd5e1; }
+.btn-block { width: 100%; }
+
+/* ================= GALERI FOTO 4:3 PORTRAIT ================= */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 12px;
+}
+
+.gallery-card {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.gallery-card-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  background: #e2e8f0;
+}
+
+.gallery-card-body {
+  padding: 9px 10px;
+}
+
+/* ================= RUANG KELAS STATUS (HIJAU TERISI / MERAH KOSONG) ================= */
+.classroom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.room-card {
+  border-radius: 14px;
+  padding: 14px;
+  border: 2px solid transparent;
+  transition: transform 0.2s;
+}
+
+.room-card.terisi {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #064e3b;
+}
+
+.room-card.kosong {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #7f1d1d;
+}
+
+.room-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.room-card.terisi .room-badge { background: #10b981; color: #fff; }
+.room-card.kosong .room-badge { background: #ef4444; color: #fff; }
+
+/* ================= TABEL RESPONSIF & LENCANA ================= */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+
+table.data-table th {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 11px;
+  text-align: left;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+table.data-table td {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+table.data-table tr:nth-child(even) { background: #f8fafc; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.badge-sangat-baik { background: #fef08a; color: #854d0e; border: 1px solid #eab308; }
+.badge-baik { background: #d1fae5; color: #065f46; border: 1px solid #10b981; }
+.badge-cukup { background: #e0f2fe; color: #075985; border: 1px solid #0ea5e9; }
+.badge-kurang { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; }
+
+.alert-banner {
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.alert-danger { background: var(--danger-bg); color: #991b1b; border: 1px solid #fca5a5; }
+.alert-success { background: var(--emerald-bg); color: #065f46; border: 1px solid #6ee7b7; }
+.alert-warning { background: var(--warning-bg); color: #92400e; border: 1px solid #fcd34d; }
+
+/* ================= PRINT A4 AREA ================= */
+@media print {
+  body * { visibility: hidden; }
+  #print-area, #print-area * { visibility: visible; }
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm;
+    padding: 12mm 15mm;
+    background: #fff;
+    color: #000;
+  }
+  @page { size: A4 portrait; margin: 10mm; }
+}

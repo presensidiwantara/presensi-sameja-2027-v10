@@ -1,0 +1,42 @@
+const CACHE_NAME = 'sameja-2027-v1';
+const ASSETS_TO_CACHE = [
+  './',
+  './index.html',
+  './presensi-mapel.html',
+  './css/styles.css',
+  './js/shared-core.js',
+  './js/guru-app.js',
+  './js/mapel-app.js',
+  './assets/logo-sekolah.png',
+  './assets/logo-pemkab.png'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+  if (event.request.url.includes('script.google.com')) return;
+  event.respondWith(
+    caches.match(event.request).then((cached) => {
+      return cached || fetch(event.request).then((response) => {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        return response;
+      }).catch(() => cached);
+    })
+  );
+});
